@@ -1,3 +1,172 @@
+/* my  style*/
+
+
+.app {
+  width: 100vw;
+  height: 100vh;
+
+
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: " appBar appBar "
+    " menu content "
+  ;
+}
+
+.toggle-actived {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(218, 212, 212);
+
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: " appBar appBar "
+    " menu content "
+  ;
+}
+
+.app-bar {
+  grid-area: appBar;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.46);
+  box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.46);
+  z-index: 10000;
+}
+
+.app-aside-menu {
+  grid-area: menu;
+  width: 250px;
+  height: 100%;
+
+  background-color: white;
+  /* border-top: 1px solid #6f7177dd; */
+  -webkit-box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.46);
+  box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.46);
+  z-index: 100;
+}
+
+.app-mini-menu {
+  grid-area: menu;
+  width: 60px;
+  height: 100%;
+
+  background-color: white;
+  /* border-top: 1px solid #6f7177dd; */
+  -webkit-box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.46);
+  box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.46);
+z-index: 100;
+}
+
+.item-menu {
+  height: 60px;
+  /* margin: 25px 0px 15px 0px; */
+  display: flex;
+  align-items: center;
+  border-left: 4px solid white;
+}
+
+.item-menu:hover {
+  background-color: rgb(238, 231, 231);
+  border-left: 4px solid#61dafb;
+}
+
+.item-menu:active {
+  background-color: #a4ebffd7;
+  border-left: 4px solid #61dafb;
+}
+
+.app-content {
+  grid-area: content;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(218, 212, 212);
+
+}
+
+/* logo */
+.app-bar-logo {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.font-my {
+  font-size: 2em;
+  font-family: fontMy;
+
+  color: #282c34;
+}
+
+.font-schedule {
+
+  font-size: 1.7em;
+  font-family: fontSchedule;
+}
+
+.logo-icon {
+  color: #61dafb;
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+.btn-icon {
+  color: #282c34;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 25px;
+  width: 25px;
+}
+
+/* aside-menu */
+.btn-toggle {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 235px;
+  top: 330px;
+  color: #61dafb;
+
+}
+.btn-md-icon{
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #282c34cc;
+}
+.btn-mini-toggle {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 45px;
+  top: 330px;
+  color: #61dafb;
+
+
+}
+
+.transclass {
+  transition: all 0.5s linear;
+
+}
+
+.transclass:active {
+  width: 250px;
+}
+
+
+
+
+
+
+
+
+
+
 .App {
   text-align: center;
 }
@@ -6,6 +175,7 @@
   height: 40vmin;
   pointer-events: none;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -32,6 +202,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

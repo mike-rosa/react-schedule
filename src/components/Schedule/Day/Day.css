@@ -1,0 +1,95 @@
+.btn-day {
+    width: 100%;
+    height: 100%;
+
+}
+
+.btn-day:hover {
+    background-color: rgb(216, 212, 212);
+}
+
+.day {
+    margin: 10px;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+/* modal */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-modal {
+    width: 100%;
+    height: 100%;
+
+    background-color: white;
+
+    display: flex;
+    border: 1px solid black;
+
+}
+
+.btn-modal:hover {
+    background-color: rgb(216, 212, 212);
+}
+
+/* evetns */
+.events {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 20px 1fr 20px;
+    grid-template-rows: 20px 1fr;
+
+    grid-template-areas: " day event qtd";
+}
+
+/* new event */
+.day {
+    grid-area: day;
+    width: 100%;
+    height: 100%;
+   
+    color: black;
+}
+
+.qtd {
+    grid-area: qtd;
+    column-span: span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 25px;
+    background-color: tomato;
+    font-size: 9pt;
+    color: white;
+    margin-top: 3px;
+}
+
+.event {
+    grid-area: event;
+
+    width: 100%;
+    height: 100%;
+    
+    grid-row: span 2;
+    grid-column: span 3;
+
+    font-size: 8pt;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
