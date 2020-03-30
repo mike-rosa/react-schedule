@@ -4,19 +4,16 @@ import Header from "./Header/Header";
 import "./Schedule.css";
 
 const Schedule = ({
-  date,
-  handleEdit,
-  addEvent,
-  handleEvent,
-  event,
- 
+  data,
+  handleEdit,  
+  handleEvent,  
+  handleSubmit,
   previousMonth,
   nextMonth,
   mth
 }) => {
   return (
-    <div className="card">
-      
+    <div className="card">      
       <div>
         {" "}
         <Header
@@ -27,19 +24,18 @@ const Schedule = ({
       </div>
       <div className="schedule">
         {" "}
-        {date.map(days => {
+        {data.map(days => {
+                 
           return (
-            <div>
+            
               <Day
+                key={days.id}              
                 days={days}
-                key={days.id}
-                handleEdit={handleEdit}
-                addEvent={addEvent}
+                handleEdit={handleEdit}                
                 handleEvent={handleEvent}
-                event={event}
-                
+                handleSubmit={handleSubmit}
               />
-            </div>
+            
           );
         })}
       </div>

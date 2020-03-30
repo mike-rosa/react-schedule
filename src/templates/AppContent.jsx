@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import AppModal from "../components/Schedule/Modal/AppModal";
 import Schedule from "../components/Schedule/Schedule";
 import { v4 as uuidv4 } from "uuid";
 
 ////////////////init() variables////////////////////
 
-var newDate = new Date();
-var month = newDate.getMonth();
-var year = newDate.getFullYear();
-console.log("newDate - " + newDate);
+var newdata = new Date();
+var month = newdata.getMonth();
+var year = newdata.getFullYear();
+console.log("newdata - " + newdata);
 
 //*************** set calendar ****************** */
 
-const cal = (month, year) => {
-  let days = [];
+const cal = (month, year,oldCal) => {
+  let oldcal = oldCal
+  let days = [{ id: 0, day: "", event: [{ evt: "", isEvt: false }] }];
   var diaPrimeiro = new Date(year, month, 1).getDay();
   var totalDias = new Date(year, month + 1, 0).getDate();
   var totalDiasAnterior = new Date(year, month, 0).getDate();
@@ -48,82 +50,81 @@ const cal = (month, year) => {
   }
 
   for (let day = 0; day < dias.length; day++) {
-    days[day] = { id: uuidv4(), day: dias[day], event: "" };
+    days[day] = {
+      id: uuidv4(),
+      day: dias[day],
+      event: ''
+    };
   }
+  // console.log("function calendario - "+ days);
 
   return days;
 };
-const days = cal(month, year);
+const days = cal(month, year,[]);
 
 ////////////// - begining of application - ////////
 const AppContent = () => {
-  //*************  all Date ************************* */
-  const [date, setDate] = useState(days);
-  //*************  individual Date ************************* */
+  //*************  all data ************************* */
+  const [data, setdata] = useState(days);
+  console.log("data  - "+ data);
+  //*************  individual data ************************* */
   // id state
   const [id, setId] = useState(0);
   // day state
   const [day, setDay] = useState("");
   // event state
-  const [event, setEvent] = useState("");
+  const [event, setEvent] = useState();
+
   // month state
   const [mth, setMth] = useState(month);
-  // const [addEvent, setAddEvent] = useState(false);
+  // AppModal state
+  const [modalShow, setModalShow] = useState(false);
+  
 
   //****************functionality********************** */
+  //handle AppModal
+  const handleAppModal = isShow => {
+    setModalShow(isShow);
+  };
   // handle edit
+
   const handleEdit = id => {
-    let nDay = date.find(item => item.id === id);
-    let { day, event } = nDay;
-    setId(id);
+    let expense = data.find(item => item.id === id);
+    let { day,event} = expense;
     setDay(day);
-    setEvent(event);
-    console.log("verificar date - ");
+    setEvent(event);   
+    setId(id);
+    setModalShow(true);
+    // console.log("handleEdit event - " + event);
   };
   // handle event
   // const handleEvent = nEvent => {
-  //   // let tempDate = date.map(item => {
+  //   // let tempdata = data.map(item => {
   //   //   return item.id === id ? { ...item, id, day, event } : item;
   //   // });
-  //   // setId(tempDate.id);
+  //   // setId(tempdata.id);
   //   setEvent("maykmaykmayk");
-  //   // setDay(tempDate.day);
-  //   //  setDate(tempDate);
+  //   // setDay(tempdata.day);
+  //   //  setdata(tempdata);
 
   //   console.log(" event - " + event);
   // };
   //handle day
 
   // handle event
-  const handleEvent = e => {
-    setEvent(e.target.value);
+  const handleEvent = e => {  
+    setEvent(e.target.value); 
   };
   // handleSubmit
   // handle submit
   const handleSubmit = e => {
     e.preventDefault();
-    if (event !== "") {
-      // if (edit) {
-      //   let tempExpenses = expenses.map(item => {
-      //     return item.id === id ? { ...item, charge, amount } : item;
-      //   });
-      //   setExpenses(tempExpenses);
-      //   setEdit(false);
-      // } else {
-        const singleEvent = { id: uuidv4(), day, event };
-        setDate([...date, singleEvent]);
-        // handleAlert({ type: "success", text: "item added" });
-      // }
-      // set charge back to empty string
-      // setCharge("");
-      // // set amount back to zero
-      // setAmount("");
-    } else {
-      // handleAlert({
-      //   type: "danger",
-      //   text: `charge can't be empty value and amount value has to be bigger than zero`
-      // });
-    }
+    let tempExpenses = data.map(item => {
+      return item.id === id ? { ...item, day, event } : item;
+    });
+    setdata(tempExpenses);
+    setModalShow(false);
+    
   };
 
   //************ controle do haederControl ************ */
@@ -138,10 +139,10 @@ const AppContent = () => {
       setnewYear(newYear + 1);
       setnewMonth(0);
     }
-
     calendar = cal(newMonth, newYear);
+    
     setMth(newMonth);
-    setDate(calendar);
+    setdata(calendar);
     console.log("onClick={nextMonth} - " + days);
   };
   //handle previous month
@@ -154,7 +155,7 @@ const AppContent = () => {
     }
     calendar = cal(newMonth, newYear);
     setMth(newMonth);
-    setDate(calendar);
+    setdata(calendar);
     console.log("onClick={previousMonth} - " + days);
   };
 
@@ -162,7 +163,8 @@ const AppContent = () => {
     <div className="app-content">
       {console.log("contentEvent == " + event)}
       <Schedule
-        date={date}
+        handleSubmit={handleSubmit}
+        data={data}
         handleEdit={handleEdit}
         handleEvent={handleEvent}
         event={event}
@@ -170,6 +172,14 @@ const AppContent = () => {
         nextMonth={nextMonth}
         mth={mth}
       />
+      {modalShow && (
+        <AppModal
+          handleEvent={handleEvent}
+          handleSubmit={handleSubmit}
+          modalShow={modalShow}
+          handleAppModal={handleAppModal}
+        />
+      )}
     </div>
   );
 };

@@ -1,41 +1,56 @@
-import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Modal } from "react-bootstrap";
+import React from "react";
 
-class AppModal extends Component {
-  constructor() {
-    super()
-    this.state={
-      show:false
-    }
-    console.log('constructor modal : '+ this.show);
+import { Button, Modal,InputGroup,FormControl } from "react-bootstrap";
 
-  }
+function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Add Event
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <InputGroup onChange={props.handleEvent}>
+            <FormControl
+              placeholder="Recipient's username"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
 
-  handleModal(){
-    this.setState({show:!this.show})
-  }
-  render() {
-    
-    return (
-      
-
-      <div>
-        {console.log('inside render : '+this.props)}
-        <Button onClick={()=>{this.handleModal()}}>close</Button>
-        <Modal show={false}>
-          <Modal.Header>Header</Modal.Header>
-          <Modal.Body>Body</Modal.Body>
-          <Modal.Footer>
-            Footer
-            <Button onClick={()=>{this.handleModal()}}>close</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
-  }
+        
+          <Button onClick={props.handleSubmit}>ADD</Button>
+          </InputGroup>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+       
+      </Modal.Footer>
+    </Modal>
+  );
 }
 
+const AppModal = ({handleEvent, handleSubmit, modalShow, handleAppModal})=> {
+  
+
+  return (
+    <>
+   
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => handleAppModal(false)}
+        handleEvent={handleEvent}
+        handleSubmit={handleSubmit}
+      />
+    </>
+  );
+}
 export default AppModal;
 // import React, { useState } from "react";
 // import AppModal from "../Modal/AppModal";
